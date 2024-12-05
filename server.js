@@ -7,6 +7,9 @@ dotenv.config();
 // created the express app
 const app = express();
 app.use(express.json());
+app.use('/api/healthCheck', (req, res)=>{
+    res.status(200).send("OK");
+})
 
 const port = process.env.PORT || 3000;
 
