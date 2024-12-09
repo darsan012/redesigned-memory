@@ -1,17 +1,16 @@
+import { createErrorMessage, createSuccessMessage } from "../helpers/errorHandler.js";
 import geminiService from "../services/gemniService.js";
 
 export const generateQuiz = async (req, res) => {
-    const { prompt} = req.body;
-
-    if (!prompt) {
-        return res.status(400).json({ error: 'Missing required fields' });
-    }
-
     try {
+        const { prompt} = req.body;
+        if (!prompt) {
+            throw new {message:"Missing required fields"}
+        }
         const quiz = await geminiService(prompt);
-        return res.status(200).json({ quiz });
+        return createSuccessMessage({data: quiz, res})
     } catch (error) {
         console.error('Error generating quiz:', error.message);
-        return res.status(500).json({ error: 'Failed to generate quiz' });
+        return createErrorMessage({message: error.message, res})
     }
 };
