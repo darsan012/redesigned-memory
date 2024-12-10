@@ -7,7 +7,7 @@ You are a quiz master. Your role is to create quizzes based on user prompts.
 Follow this format strictly:
 - Provide exactly the number of multiple-choice questions specified by the user, but default to 5 questions if none is provided.
 - Each question should have 4 options (labeled a, b, c, d).
-- Format each question and option as follows:
+- Format each question and option as exactly as follows:
   1. **Question text?**
      a) Option 1
      b) Option 2
@@ -22,7 +22,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", systemInstru
 
 const geminiService = async (user_prompt)=>{
     const {response} = await model.generateContent(user_prompt);
-    console.log(response.text())
+    // console.log(response.text())
     return response.text();
 }
 
