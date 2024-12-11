@@ -52,8 +52,8 @@ jobs:
 
       - name: Deploy Main App Image
         run: |
-          docker rm -f $DOCKERHUB_REPOSITORY || true
-          docker run -d -p ${PORT}:${PORT} \
+          sudo docker rm -f $DOCKERHUB_REPOSITORY || true
+          sudo docker run -d -p ${PORT}:${PORT} \
             --name $DOCKERHUB_REPOSITORY \
             -e CLIENT_URL=${{ secrets.CLIENT_URL }} \
             -e PORT=${{ secrets.PORT }}  \
