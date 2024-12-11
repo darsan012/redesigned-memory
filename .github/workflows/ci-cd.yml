@@ -2,7 +2,7 @@ name : Quiz API pipeline
 
 on:
 #  initiates the pipeline whenever user pushes on the main branch
-  push:
+  pull_request:
     branches:
       - main
 
@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm tests
+        run: npm test
 
   # Deploying application after test is passed
   deploy:
