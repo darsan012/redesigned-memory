@@ -25,11 +25,14 @@ jobs:
       - name: Run tests
         run: npm test
 
-  # Deploying application after test is passed
+  # Deploying application after test is passed via github runner
   deploy:
-      needs: test
-      runs-on: ubuntu-latest
-      steps:
-      - name: Deploy to Production
-        run: |
-          echo "Deploying application..."
+    needs: test
+    runs-on: [self-hosted, linux]  # Deploy will run on your self-hosted runner (EC2)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run deploy script on EC2
+        run: bash deploy.sh  
