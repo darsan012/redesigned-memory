@@ -47,7 +47,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Pull docker image
-        run: sudo docker pull $DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION:latest
+        run: sudo docker pull $DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION
 
       - name: Deploy Main App Image
         run: |
