@@ -1,0 +1,35 @@
+name : Quiz API pipeline
+
+on:
+#  initiates the pipeline whenever user pushes on the main branch
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # Test is running on ubuntu machine
+
+    steps:
+      - name: Clone and checkout to the repository
+        uses: actions/checkout@v4 # Clones the repository in the working directory of the runner
+
+      - name: Setting up Node
+        uses: actions/setup-node@v3 # setting up the node version to version 21.6.0
+        with:
+          node-version: "21.6.0"
+
+      - name: Installing dependencies # installing the required dependencies for the application
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  # Deploying application after test is passed
+  deploy:
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+      - name: Deploy to Production
+        run: |
+          echo "Deploying application..."
