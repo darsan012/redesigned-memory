@@ -11,6 +11,7 @@ env:
   DOCKERHUB_USERNAME: darshangautam  
   DOCKERHUB_REPOSITORY: quiz_api  
   IMAGE_VERSION: v1.0.0
+  PORT: ${{ secrets.PORT }} 
 
 jobs:
   # Building the docker image and pushing to the docker registry.
