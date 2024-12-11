@@ -37,7 +37,7 @@ jobs:
   # Deploying application after test is passed via github runner
   deploy_job:
     name: Deploy the Docker Image
-    runs-on: [self-hosted, linux]  # self-hosted runner
+    runs-on: [self-hosted]  # self-hosted runner
     needs: [build_job]
     steps:
       # This action allows us to authenticate with DockerHub
