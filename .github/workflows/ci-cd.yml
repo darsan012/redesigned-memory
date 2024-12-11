@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm testss
+        run: npm test
 
   # Deploying application after test is passed
   deploy:
