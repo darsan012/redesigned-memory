@@ -31,13 +31,6 @@ jobs:
     runs-on: [self-hosted, linux]  # Deploy will run on your self-hosted runner (EC2)
 
     steps:
-      - name: Setting up Node
-        uses: actions/setup-node@v3 # setting up the node version to version 21.6.0
-        with:
-          node-version: "21.6.0"
-
-      - name: Installing dependencies # installing the required dependencies for the application
-        run: npm install
-
-      - name: Run main application
-        run: npm run dev
+      - name: Run deploy script on EC2
+        run: |
+          echo "Deploying application..."
