@@ -16,7 +16,7 @@ const corsOptions = {
 const app = express();
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use('/', (req, res)=>{
+app.get('/', (req, res)=>{
   res.status(200).send("Your app is running successfully.")
 })
 app.use('/api/healthCheck', healthCheck)
