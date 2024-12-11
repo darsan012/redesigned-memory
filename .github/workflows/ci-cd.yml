@@ -6,28 +6,36 @@ on:
     branches:
       - main
 
+# global variable
+env:
+  DOCKERHUB_USERNAME: darshangautam  
+  DOCKERHUB_REPOSITORY: quiz_api  
+  IMAGE_VERSION: v1.0.0
+
 jobs:
-  test:
+  # Building the docker image and pushing to the docker registry.
+  build_job:
     runs-on: ubuntu-latest # Test is running on ubuntu machine
 
     steps:
       - name: Clone and checkout to the repository
         uses: actions/checkout@v4 # Clones the repository in the working directory of the runner
 
-      - name: Setting up Node
-        uses: actions/setup-node@v3 # setting up the node version to version 21.6.0
+      - name: Logging in to the docker hub
+        uses: docker/login-action@v2
         with:
-          node-version: "21.6.0"
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        
+      - name: Build Node app Image
+        run: docker build -t $DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION -f Dockerfile  .
 
-      - name: Installing dependencies # installing the required dependencies for the application
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+      - name: Push Docker Image to Docker Hub
+        run: docker push $DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION
 
   # Deploying application after test is passed via github runner
   deploy:
-    needs: test
+    needs: build_job
     runs-on: [self-hosted, linux]  # Deploy will run on your self-hosted runner (EC2)
 
     steps:
